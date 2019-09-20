@@ -3,11 +3,11 @@
 </div>
 <mat-grid-list class="pokemon-details" *ngIf="pokemon" cols="2" rowHeight="2:1">
   <mat-grid-tile class="pokemon-details-tile">
-    <div>
-      <img
-        src="../../assets/img/sprites/{{ pokemon.id }}.png"
-        alt="{{ pokemon.name }}"
-      />
+    <div class="pokemon-image-div">
+        <img class="pokemon-image"
+          src="../../assets/img/official-artwork/{{ pokemon.id }}.png"
+          alt="{{ pokemon.name }}"
+        />
       <p>n° {{ pokemon.id | number: "3.0" }}</p>
     </div>
   </mat-grid-tile>
