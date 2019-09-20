@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Pokemon } from '../models/pokemon.model';
 import { PokemonService } from '../pokemons/pokemon.service';
 import { ActivatedRoute } from '@angular/router';
@@ -13,19 +13,28 @@ export class PokemonDetailsComponent implements OnInit {
 
   pokemon : Pokemon;
 
-  constructor(private route: ActivatedRoute, private heroService: PokemonService, private location: Location) { }
+  constructor(private pokemonService: PokemonService) { }
 
   ngOnInit() {
-    this.getPokemon();
+
   }
 
-  getPokemon() {
-    let id = +this.route.snapshot.paramMap.get('id');
-    this.heroService.getPokemon(id).subscribe(result => this.pokemon = result);
+  @Input()
+  set selectedPokemon(selectedPokemon: Pokemon) {
+    console.log('prev pokemon name: ', this.pokemon ? this.pokemon.name : "");
+    console.log('new name: ', selectedPokemon ? selectedPokemon.name : "");
+    this.pokemon = selectedPokemon;
+    this.getPokemonDetails();
   }
 
-  goBack() {
-    this.location.back();
+  getPokemonDetails() {
+    let id = this.pokemon ? this.pokemon.id : null;
+    if(id != null) {
+      console.log("Loading Pokemon details....");
+      this.pokemonService.getPokemon(id).subscribe(result => this.pokemon = result);
+    }
+    else this.pokemon = null;
   }
+
   
 }

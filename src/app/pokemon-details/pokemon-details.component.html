@@ -1,24 +1,24 @@
-<div class="pokemon-button-row">
-  <button mat-stroked-button color="accent" (click)="goBack()" >Retour</button>
-</div>
+
 <mat-grid-list class="pokemon-details" *ngIf="pokemon" cols="2" rowHeight="2:1">
-  <mat-grid-tile class="pokemon-details-tile">
+  <mat-grid-tile [rowspan]="2" class="pokemon-details-tile">
     <div class="pokemon-image-div">
-        <img class="pokemon-image"
-          src="../../assets/img/official-artwork/{{ pokemon.id }}.png"
-          alt="{{ pokemon.name }}"
-        />
+      <img
+        class="pokemon-image"
+        src="../../assets/img/official-artwork/{{ pokemon.id }}.png"
+        alt="{{ pokemon.name }}"
+      />
       <p>n° {{ pokemon.id | number: "3.0" }}</p>
     </div>
   </mat-grid-tile>
-  <mat-grid-tile>
+  <mat-grid-tile [rowspan]="2">
     <mat-list>
       <mat-list-item class="pokemon-button-row"
         ><b>{{ pokemon.name }}</b>
 
         <audio
           src="../../assets/audio/{{ pokemon.id }}.mp3"
-          type="audio/mp3" #cry
+          type="audio/mp3"
+          #cry
         ></audio>
         <button mat-icon-button aria-label="play sound" (click)="cry.play()">
           <mat-icon>play_circle_outline</mat-icon>

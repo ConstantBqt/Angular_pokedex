@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { Pokemon } from "../models/pokemon.model";
 import { PokemonService } from "../pokemons/pokemon.service";
 
@@ -12,6 +12,9 @@ export class PokemonListComponent implements OnInit {
   offset: number = 0;
   limit: number = 20;
 
+  selectedPokemon: Pokemon = null
+  @Output() selectedPokemonEE: EventEmitter<Pokemon> = new EventEmitter();
+
   constructor(public pokemonService: PokemonService) {}
 
   ngOnInit() {
@@ -23,6 +26,12 @@ export class PokemonListComponent implements OnInit {
     this.pokemonService
       .getPokemons(this.offset, this.limit)
       .subscribe(pokemons => (this.pokemons.push(...pokemons.data)));
+  }
+
+  onSelect(pokemon: Pokemon) {
+    console.log(pokemon.name);
+    this.selectedPokemon = pokemon;
+    this.selectedPokemonEE.emit(this.selectedPokemon);
   }
 
   onScroll() {

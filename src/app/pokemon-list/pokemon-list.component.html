@@ -4,13 +4,13 @@
   class="pokemon-mat-list"
   infiniteScroll
   alwaysCallback="true"
+  scrollWindow="false"
+  [infiniteScrollDistance]="2"
+  [infiniteScrollUpDistance]="1.5"
+  [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()"
-  (scrolledUp)="onScrollUp()"
 >
-  <mat-list-item
-    *ngFor="let pokemon of pokemons"
-    routerLink="../detail/{{ pokemon.id }}"
-  >
+  <mat-list-item *ngFor="let pokemon of pokemons" (click)="onSelect(pokemon)">
     <img
       matListAvatar
       src="../../assets/img/sprites/{{ pokemon.id }}.png"
