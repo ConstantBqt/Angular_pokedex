@@ -1,0 +1,45 @@
+<div class="pokemon-button-row">
+  <button mat-stroked-button color="accent" (click)="goBack()" >Retour</button>
+</div>
+<mat-grid-list class="pokemon-details" *ngIf="pokemon" cols="2" rowHeight="2:1">
+  <mat-grid-tile class="pokemon-details-tile">
+    <div>
+      <img
+        src="../../assets/img/sprites/{{ pokemon.id }}.png"
+        alt="{{ pokemon.name }}"
+      />
+      <p>n° {{ pokemon.id | number: "3.0" }}</p>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-list>
+      <mat-list-item class="pokemon-button-row"
+        ><b>{{ pokemon.name }}</b>
+
+        <audio
+          src="../../assets/audio/{{ pokemon.id }}.mp3"
+          type="audio/mp3" #cry
+        ></audio>
+        <button mat-icon-button aria-label="play sound" (click)="cry.play()">
+          <mat-icon>play_circle_outline</mat-icon>
+        </button>
+      </mat-list-item>
+      <mat-list-item
+        ><mat-chip-list *ngFor="let type of pokemon.types">
+          <mat-chip>{{ type }}</mat-chip>
+        </mat-chip-list>
+      </mat-list-item>
+      <mat-list-item
+        >Taille: {{ pokemon.height | number: ".1-5" }} m</mat-list-item
+      >
+      <mat-list-item
+        >Poids: {{ pokemon.weight | number: ".1-5" }} m</mat-list-item
+      >
+    </mat-list>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <p>{{ pokemon.description }}</p>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<app-messages></app-messages>

@@ -5,13 +5,14 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { PagedData } from '../models/paged-data.model';
+import {environment} from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService {
 
-  private pokemonUrl: string = "http://app-ec21e68e-3e55-42d7-b1ae-3eef7507a353.cleverapps.io/pokemons";
+  private pokemonUrl: string = `${environment.apiUrl}/pokemons`;
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
@@ -21,6 +22,16 @@ export class PokemonService {
       .pipe(
         tap(pokemons => this.log("fetched " + pokemons.data.length + " pokemon(s)")),
         catchError(this.handleError<any>('getPokemons', null))
+      );
+  }
+
+  getPokemon(id: number): Observable<Pokemon> {
+    this.log(`fetched pokemon id=${id}`);
+    let url = `${this.pokemonUrl}/${id}`;
+    return this.http.get<Pokemon>(url)
+      .pipe(
+        tap(pokemon => this.log(`fetched pokemon id=${pokemon.id}`)),
+        catchError(this.handleError<Pokemon>(`getPokemon id=${id}`, null))
       );
   }
 
