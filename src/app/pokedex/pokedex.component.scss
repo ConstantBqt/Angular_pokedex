@@ -4,6 +4,8 @@ mat-drawer-container{
 
 .pokemon-list{
 	width: 250px;
+	overflow: auto;
+	height: 100vh;
 }
 
 .pokemon-details{

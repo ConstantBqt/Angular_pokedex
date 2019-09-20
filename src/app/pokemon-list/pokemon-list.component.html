@@ -1,13 +1,20 @@
-<p>Catch them all!</p>
+<h2>Catch them all!</h2>
+
+<!-- <mat-form-field>
+  <mat-label>Search a Pokémon</mat-label>
+  <input
+    matInput
+    #searchBox
+    id="search-box"
+    (input)="search(searchBox.value)"
+  />
+</mat-form-field> -->
 
 <mat-list
   class="pokemon-mat-list"
   infiniteScroll
   alwaysCallback="true"
   scrollWindow="false"
-  [infiniteScrollDistance]="2"
-  [infiniteScrollUpDistance]="1.5"
-  [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()"
 >
   <mat-list-item *ngFor="let pokemon of pokemons" (click)="onSelect(pokemon)">

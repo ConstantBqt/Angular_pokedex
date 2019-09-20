@@ -1,6 +1,8 @@
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { Pokemon } from "../models/pokemon.model";
 import { PokemonService } from "../pokemons/pokemon.service";
+import { Subject, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: "app-pokemon-list",
@@ -11,14 +13,19 @@ export class PokemonListComponent implements OnInit {
   pokemons: Array<Pokemon> = [];
   offset: number = 0;
   limit: number = 20;
-
   selectedPokemon: Pokemon = null
+  pokemons$: Observable<Pokemon[]>;
+  searchTerms = new Subject<String>();
+
   @Output() selectedPokemonEE: EventEmitter<Pokemon> = new EventEmitter();
 
   constructor(public pokemonService: PokemonService) {}
 
   ngOnInit() {
     this.getPokemons();
+    // this.pokemons$ = this.searchTerms.pipe(
+    //   debounceTime(300), distinctUntilChanged(), switchMap((term: string) => this.pokemonService.getPokemons(this.offset, this.limit, term))
+    // );
   }
 
   getPokemons() {
@@ -39,5 +46,9 @@ export class PokemonListComponent implements OnInit {
     console.log("scrolled!");
     this.offset += 5;
     this.getPokemons();
+  }
+
+  search(term: string) {
+
   }
 }
