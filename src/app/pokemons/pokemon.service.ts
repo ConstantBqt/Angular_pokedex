@@ -16,9 +16,12 @@ export class PokemonService {
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
-  getPokemons(): Observable<PagedData<Pokemon>> {
+  getPokemons(offset: number = 0, limit: number = 20): Observable<PagedData<Pokemon>> {
     this.log("fetched pokemons");
-    return this.http.get<PagedData<Pokemon>>(this.pokemonUrl)
+    const params = new HttpParams()
+      .set('offset', `${offset}`)
+      .set('limit', `${limit}`)
+    return this.http.get<PagedData<Pokemon>>(this.pokemonUrl, {params})
       .pipe(
         tap(pokemons => this.log("fetched " + pokemons.data.length + " pokemon(s)")),
         catchError(this.handleError<any>('getPokemons', null))

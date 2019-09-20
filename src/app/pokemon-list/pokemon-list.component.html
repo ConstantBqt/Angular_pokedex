@@ -1,13 +1,25 @@
 <p>Catch them all!</p>
 
-<mat-list>
-	<mat-list-item *ngFor="let pokemon of pokemons" routerLink="../detail/{{pokemon.id}}" >
-		<img matListAvatar src="../../assets/img/sprites/{{pokemon.id}}.png" alt="{{pokemon.name}}">
-		<!-- <img matListAvatar src="../../assets/img/sprites/" alt="{{pokemon.name}}"> -->
-		<p matLine>
-			<span> {{pokemon.id}} </span>
-			<span class="demo-2">. {{pokemon.name}} </span>
-		</p>
-	</mat-list-item>
+<mat-list
+  class="pokemon-mat-list"
+  infiniteScroll
+  alwaysCallback="true"
+  (scrolled)="onScroll()"
+  (scrolledUp)="onScrollUp()"
+>
+  <mat-list-item
+    *ngFor="let pokemon of pokemons"
+    routerLink="../detail/{{ pokemon.id }}"
+  >
+    <img
+      matListAvatar
+      src="../../assets/img/sprites/{{ pokemon.id }}.png"
+      alt="{{ pokemon.name }}"
+    />
+    <!-- <img matListAvatar src="../../assets/img/sprites/" alt="{{pokemon.name}}"> -->
+    <p matLine>
+      <span> {{ pokemon.id }} </span>
+      <span class="demo-2">. {{ pokemon.name }} </span>
+    </p>
+  </mat-list-item>
 </mat-list>
-<app-messages></app-messages>
